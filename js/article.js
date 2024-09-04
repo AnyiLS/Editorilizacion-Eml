@@ -183,10 +183,10 @@ const letters = ['A', 'B', 'C', 'D']
 
 document.addEventListener('DOMContentLoaded', () => {
 	handleChangeArticle()
-	if (localStorage.getItem('like') && localStorage.getItem('dislike')) {
+	
 		localStorage.setItem('like', 0)
 		localStorage.setItem('dislike', 0)
-	}
+	
 
 	const like = localStorage.getItem('like')
 	const dislike = localStorage.getItem('dislike')
