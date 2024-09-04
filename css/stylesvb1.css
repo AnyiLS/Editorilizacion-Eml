@@ -1,0 +1,52 @@
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
+    width: 218px;
+    height: 215px;
+    background: linear-gradient(
+        #f4c542 0%,       /* amarillo claro */
+        #f3b51d 10%,      /* amarillo más oscuro */
+        #e3a300 50%,      /* amarillo oscuro */
+        #d18a00 100%      /* amarillo más oscuro */
+    );
+    border-radius: 50%;
+    position: absolute;
+    z-index: -2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: rotate 5s linear infinite; /* Aquí aplicamos la animación de rotación */
+}
+
+.circle::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(#f8e585 10%, #f7c300 50%, #f5a500 100%);
+    border-radius: 50%;
+    filter: blur(20px);
+}
+
+.bola {
+    position: absolute;
+    top: 18.6%;
+    left: 25.4%;
+    /* width: 100%; */
+    z-index: 1;
+}

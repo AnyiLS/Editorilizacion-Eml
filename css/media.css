@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  background: #525659;
+}
+
+@media screen and (width <= 600px) {
+  body {
+    background: red;
+  }
+}
