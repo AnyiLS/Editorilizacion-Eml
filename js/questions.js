@@ -5,6 +5,7 @@ let questions = null
 console.log('questions', question)
 
 const handleSetListeners = () => {
+	
 	articleBySections[question].options.forEach((item, index) => {
 		const id = `responseQuestion${articleBySections[question].id}${letters[index]}`
 		document.getElementById(id).addEventListener('click', () => {
@@ -44,8 +45,10 @@ const handleSetListeners = () => {
 }
 
 document.getElementById('button-next-article').addEventListener('click', () => {
+	
 	handleChangeQuestion();
 	handleSetListeners();
+	if (question !== 3) document.getElementById('button-next-article').setAttribute('disabled', 'true')
 })
 
 
@@ -118,6 +121,7 @@ document.getElementById('boton-1').addEventListener('click', () => {
 	)
 		.then((response) => response.json())
 		.then((data) => {
+			document.getElementById('button-next-article').removeAttribute('disabled')
 			const correct = articleBySections[question].correct
 			if (correct !== responseQuestion1) {
 				const idRadio = `radio-buttom-${responseQuestion1.toLowerCase()}`
@@ -134,15 +138,15 @@ document.getElementById('boton-1').addEventListener('click', () => {
 			}
 
 			const idRadio = `radio-buttom-${correct.toLowerCase()}`
-			document.getElementById(idRadio).style = 'border:1px solid #F9A12F'
+			document.getElementById(idRadio).style = 'border:1px solid #1a8f1f'
 
 			document.getElementById(
 				`bar-${correct.toLowerCase()}`
-			).style.background = '#F9A12F'
+			).style.background = '#1a8f1f'
 
 			document.getElementById(
 				`radio-botton-${correct.toLowerCase()}`
-			).style = 'background: #F9A12F;'
+			).style = 'background: #1a8f1f;'
 
 			document
 				.querySelectorAll('.stadistics-container')

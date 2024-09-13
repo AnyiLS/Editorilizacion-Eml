@@ -49,7 +49,7 @@ if (!window.location.href.includes('sesion')) {
 								text: 'registro exitoso',
 							}).then((res) => {
 								if (res.isConfirmed) {
-									window.location.href = './sesion.html'
+									window.location.href = './index.html'
 								}
 							})
 						})

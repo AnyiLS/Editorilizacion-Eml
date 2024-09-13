@@ -75,7 +75,15 @@ const handleChangeArticle = () => {
 }
 
 const handleChangeQuestion = () => {
-	if (question + 1 > 6) question = 0
+	if (question + 1 > 6) {
+		Swal.fire({
+			icon: 'success',
+			text: 'Has finalizado el articulo',
+			confirmButtonText: 'Cerrar sesion',
+		}).then((res) => {
+			if (res.isConfirmed) window.location.href = './sesion.html'
+		})
+	}
 	else question += 1
 	handleChangeArticle()
 }
