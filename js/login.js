@@ -46,7 +46,7 @@ if (!window.location.href.includes('sesion')) {
 							document.getElementById('iddocumento').value = ''
 							Swal.fire({
 								icon: 'success',
-								text: 'registro exitoso',
+								text: 'Registro exitoso',
 							}).then((res) => {
 								if (res.isConfirmed) {
 									window.location.href = './index.html'

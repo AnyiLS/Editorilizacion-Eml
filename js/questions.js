@@ -21,15 +21,15 @@ const handleSetListeners = () => {
 			arrayLetters.forEach((item) => {
 				const idRadio = `radio-buttom-${item.toLowerCase()}`
 				document.getElementById(idRadio).style =
-					'border:1px solid #808080'
+					'border:1px solid #fff'
 
 				document.getElementById(
 					`bar-${item.toLowerCase()}`
-				).style.background = '#808080'
+				).style.background = '#fff'
 
 				document.getElementById(
 					`radio-botton-${item.toLowerCase()}`
-				).style = 'background: #808080;'
+				).style = 'background: #bbb8b4;'
 			})
 
 			document.getElementById(idRadio).style.border = '3px solid #F9A12F'
