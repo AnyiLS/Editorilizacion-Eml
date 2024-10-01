@@ -4,3 +4,5 @@ document.getElementById('cerrarsesion').addEventListener('click', function () {
 	window.localStorage.clear()
 	window.location.href = './sesion.html'
 })
+
+

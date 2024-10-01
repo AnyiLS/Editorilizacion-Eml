@@ -1,11 +1,16 @@
 let question = 0
 
 const handleChangeArticle = () => {
-	document.getElementById('text-article-container').innerHTML = ''
+	const container = document.querySelector('.card-container'),
+		article = document.createElement('div')
+
+	article.classList.add(`information-${question}`)
+
+	const textToAdd = document.createElement('div')
+	textToAdd.id = 'text-article-container'
 
 	if (articleBySections[question].title) {
-		document.getElementById('text-article-container').innerHTML +=
-			articleBySections[question].title
+		textToAdd.innerHTML = `<div id="text-article-container">${articleBySections[question].title}</div>`
 	}
 
 	let text = ``
@@ -14,32 +19,44 @@ const handleChangeArticle = () => {
 		text += `<p class="text-article">${item}</p>`
 	})
 
-	document.getElementById('text-article-container').innerHTML += text
+	textToAdd.innerHTML += text
+	article.appendChild(textToAdd)
 
 	if (articleBySections[question].tooltip) {
-		document.getElementById(
-			'text-article-container'
-		).innerHTML += `<div class="tooltip">${articleBySections[question].tooltip}</div>`
+		article.innerHTML += `<div class="tooltip">${articleBySections[question].tooltip}</div>`
 	}
 
 	if (articleBySections[question].question) {
-		document.getElementById('card-question-container').style.display =
-			'block'
-		document.getElementById(
-			'question-number'
-		).innerText = `Pregunta ${articleBySections[question].id}`
-		document.getElementById('question').innerText =
-			articleBySections[question].question
+		const questionsContainer = document.createElement('div')
+		questionsContainer.classList.add('card-question-container')
+		questionsContainer.id = 'card-question-container'
 
-		document.getElementById('option-response').innerHTML = ''
+		const questionSubcontainer = document.createElement('div')
+		questionSubcontainer.classList.add('card-subquestion-container')
+
+		const numberQuestion = document.createElement('p')
+		numberQuestion.classList.add('question-number')
+		numberQuestion.id = 'question-number'
+		numberQuestion.textContent = `Pregunta ${articleBySections[question].id}`
+		questionSubcontainer.appendChild(numberQuestion)
+
+		const questionText = document.createElement('p')
+		questionText.classList.add('question-text')
+		questionText.id = 'question'
+		questionText.innerText = articleBySections[question].question
+		questionSubcontainer.appendChild(questionText)
+
+		const options = document.createElement('div')
+		options.classList.add('option')
+		options.id = 'option-response'
 
 		articleBySections[question].options.forEach((item, index) => {
-			document.getElementById('option-response').innerHTML += `
+			options.innerHTML += `
 				<div class="option-checkbox" id="responseQuestion${
 					articleBySections[question].id
 				}${letters[index]}">
-					<div class="radio-buttom" id="radio-buttom-${letters[index].toLowerCase()}">
-						<div class='radio-botton' id='radio-botton-${letters[index].toLowerCase()}'>
+					<div class="radio-buttom" id="radio-buttom-${letters[index].toLowerCase()}${question === 0 ? '' : `-${question + 1}`}">
+						<div class='radio-botton' id='radio-botton-${letters[index].toLowerCase()}${question === 0 ? '' : `-${question + 1}`}'>
 							
 						</div>
 					</div>
@@ -58,20 +75,39 @@ const handleChangeArticle = () => {
 						50%
 					</p>
 				</div>		
-				<div class='stadistics-container'>
+				<div class='stadistics-container-${question + 1}'>
 					<div class='stadistics-bar-container'>
-						<div class='bar-${letters[index].toLowerCase()}' id='bar-${letters[
+						<div class='bar-${letters[index].toLowerCase()}${question === 0 ? '' : `-${question + 1}`}' id='bar-${letters[
 				index
-			].toLowerCase()}'></div>
+			].toLowerCase()}${
+				question === 0 ? '' : `-${question + 1}`
+			}'></div>
 					</div>
-					<span id='number-stadistics-${letters[index].toLowerCase()}'>100%</span>
+					<span id='number-stadistics-${letters[index].toLowerCase()}${question === 0 ? '' : `-${question + 1}`}'>100%</span>
 				</div>
 			`
 		})
-	} else {
-		document.getElementById('card-question-container').style.display =
-			'none'
+
+		questionSubcontainer.appendChild(options)
+
+		const button = document.createElement('div');
+		button.style = 'display:flex;justify-content:center;align-items:center;padding-bottom:10px;'
+		button.id = `boton-1${question === 0 ? '' : `-${question + 1}`}`
+		const buttonElement = document.createElement('button');
+		buttonElement.classList.add('buttom-suce')
+		buttonElement.classList.add('shadow-effect')
+		buttonElement.innerText = 'Enviar';
+
+		button.appendChild(buttonElement);
+
+		questionSubcontainer.appendChild(button);
+
+		questionsContainer.appendChild(questionSubcontainer)
+
+		article.appendChild(questionsContainer)
 	}
+
+	container.appendChild(article)
 }
 
 const handleChangeQuestion = () => {
@@ -79,12 +115,11 @@ const handleChangeQuestion = () => {
 		Swal.fire({
 			icon: 'success',
 			text: 'Has finalizado el articulo',
-			confirmButtonText: 'Cerrar sesion',
+			confirmButtonText: 'Finalizar',
 		}).then((res) => {
-			if (res.isConfirmed) window.location.href = './sesion.html'
+			if (res.isConfirmed) window.location.href = './dashboard.html'
 		})
-	}
-	else question += 1
+	} else question += 1
 	handleChangeArticle()
 }
 
@@ -190,11 +225,10 @@ const articleBySections = [
 const letters = ['A', 'B', 'C', 'D']
 
 document.addEventListener('DOMContentLoaded', () => {
-	handleChangeArticle()
 	
-		localStorage.setItem('like', 0)
-		localStorage.setItem('dislike', 0)
-	
+
+	localStorage.setItem('like', 0)
+	localStorage.setItem('dislike', 0)
 
 	const like = localStorage.getItem('like')
 	const dislike = localStorage.getItem('dislike')
@@ -228,7 +262,7 @@ document.getElementById('share').addEventListener('click', () => {
 				style: {
 					background: '#00b09b',
 					fontFamily: "'Montserrat', sans-serif",
-					borderRadius: 10
+					borderRadius: 10,
 				},
 			}).showToast()
 		})

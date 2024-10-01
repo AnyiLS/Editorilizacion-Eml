@@ -22,46 +22,57 @@ if (!window.location.href.includes('sesion')) {
 			formControlRegister.mail &&
 			formControlRegister.document
 		) {
-			if (
-				formControlRegister.name !== '' &&
-				formControlRegister.mail !== '' &&
-				formControlRegister.document !== ''
-			) {
-				if (emailRegex.test(formControlRegister.mail)) {
-					let formData = new FormData()
-					formData.append('name', formControlRegister.name)
-					formData.append('email', formControlRegister.mail)
-					formData.append('document', formControlRegister.document)
+			const disable = document
+				.querySelector('#success')
+			
 
-					// Realizar una solicitud GET a la API
-					axios
-						.post(
-							'https://api-editorizacion-dinamica-2.eml.com.co/api/auth/register',
-							formData
+				console.log(disable)
+			if (!disable.classList.contains('disable')) {
+				if (
+					formControlRegister.name !== '' &&
+					formControlRegister.mail !== '' &&
+					formControlRegister.document !== ''
+				) {
+					if (emailRegex.test(formControlRegister.mail)) {
+						let formData = new FormData()
+						formData.append('name', formControlRegister.name)
+						formData.append('email', formControlRegister.mail)
+						formData.append(
+							'document',
+							formControlRegister.document
 						)
-						.then((response) => {
-							formControlRegister = {}
-							document.getElementById('nombre').value = ''
-							document.getElementById('email').value = ''
-							document.getElementById('iddocumento').value = ''
-							Swal.fire({
-								icon: 'success',
-								text: 'Registro exitoso',
-							}).then((res) => {
-								if (res.isConfirmed) {
-									window.location.href = './index.html'
-								}
+
+						// Realizar una solicitud GET a la API
+						axios
+							.post(
+								'https://api-editorizacion-dinamica-2.eml.com.co/api/auth/register',
+								formData
+							)
+							.then((response) => {
+								formControlRegister = {}
+								document.getElementById('nombre').value = ''
+								document.getElementById('email').value = ''
+								document.getElementById('iddocumento').value =
+									''
+								Swal.fire({
+									icon: 'success',
+									text: 'Registro exitoso',
+								}).then((res) => {
+									if (res.isConfirmed) {
+										window.location.href = './index.html'
+									}
+								})
 							})
-						})
-						.catch((error) => {
-							console.error(error)
-							Swal.fire({
-								icon: 'error',
-								text: error.response.data.data,
+							.catch((error) => {
+								console.error(error)
+								Swal.fire({
+									icon: 'error',
+									text: error.response.data.data,
+								})
 							})
-						})
-				} else {
-					alert('El correo electrónico no es válido.')
+					} else {
+						alert('El correo electrónico no es válido.')
+					}
 				}
 			}
 		}
@@ -75,7 +86,7 @@ if (!window.location.href.includes('sesion')) {
 
 	document.getElementById('nombreLogin').addEventListener('change', (e) => {
 		formControlLogin.user = e.target.value
-	}) 
+	})
 
 	document
 		.getElementById('successLogin')
