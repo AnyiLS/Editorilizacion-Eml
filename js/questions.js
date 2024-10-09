@@ -5,6 +5,8 @@ let responseQuestion2 = null
 let responseQuestion3 = null
 let responseQuestion4 = null
 
+const resueltas = []
+
 console.log('questions', question)
 
 const handleSetListeners = () => {
@@ -64,125 +66,128 @@ document.getElementById('button-next-article').addEventListener('click', () => {
 			.getElementById('button-next-article')
 			.setAttribute('disabled', 'true')
 
-	
-
 	document
 		.getElementById(`boton-1${question === 0 ? '' : `-${question + 1}`}`)
 		.addEventListener('click', () => {
-			let token = JSON.parse(localStorage.getItem('token')).data.token
+			console.log(resueltas)
+			if (!resueltas.includes(questions)) {
+				resueltas.push(questions)
+				let token = JSON.parse(localStorage.getItem('token')).data.token
 
-			let formData = new FormData()
+				let formData = new FormData()
 
-			formData.append('question', questions)
+				formData.append('question', questions)
 
-			formData.append('response', responseQuestion1)
+				formData.append('response', responseQuestion1)
 
-			fetch(
-				'https://api-editorizacion-dinamica-2.eml.com.co/api/auth/save-question',
-				{
-					method: 'POST',
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-					body: formData,
-				}
-			)
-				.then((response) => response.json())
-				.then((data) => {
-					document
-						.getElementById('button-next-article')
-						.removeAttribute('disabled')
-					const correct = articleBySections[question].correct
-
-					document
-						.querySelectorAll(
-							`.stadistics-container-${question + 1}`
-						)
-						.forEach((item) => {
-							item.style.display = 'flex'
-						})
-
-					const idRadio = `radio-buttom-${correct.toLowerCase()}${
-						question === 0 ? '' : `-${question + 1}`
-					}`
-
-					document.getElementById(idRadio).style =
-						'border:3px solid #1a8f1f'
-
-					document.getElementById(
-						`bar-${correct.toLowerCase()}${
-							question === 0 ? '' : `-${question + 1}`
-						}`
-					).style.background = '#1a8f1f'
-
-					document.getElementById(
-						`radio-botton-${correct.toLowerCase()}${
-							question === 0 ? '' : `-${question + 1}`
-						}`
-					).style = 'background: #1a8f1f;display:block;'
-
-					for (let i = 0; i < letters.length; i++) {
-						if (letters[i] === correct) {
-							document.getElementById(
-								`bar-${letters[i].toLowerCase()}${
-									question === 0 ? '' : `-${question + 1}`
-								}`
-							).style = `width:${data.data[letters[i].toLowerCase()]}%;background:#1a8f1f;`
-						} else {
-							document.getElementById(
-								`bar-${letters[i].toLowerCase()}${
-									question === 0 ? '' : `-${question + 1}`
-								}`
-							).style = `width:${data.data[letters[i].toLowerCase()]}%;background:#fff;`
-						}
-						
-
-
-
-						document.getElementById(
-							`number-stadistics-${letters[i].toLowerCase()}${
-								question === 0 ? '' : `-${question + 1}`
-							}`
-						).innerText = `${data.data[
-							letters[i].toLowerCase()
-						].toFixed(2)}%`
-
-						document.getElementById(
-							`radio-botton-${letters[i].toLowerCase()}${
-								question === 0 ? '' : `-${question + 1}`
-							}`
-						).style.display = 'block'
+				fetch(
+					'https://api-editorizacion-dinamica-2.eml.com.co/api/auth/save-question',
+					{
+						method: 'POST',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+						body: formData,
 					}
+				)
+					.then((response) => response.json())
+					.then((data) => {
+						document
+							.getElementById('button-next-article')
+							.removeAttribute('disabled')
+						const correct = articleBySections[question].correct
 
-					if (correct !== responseQuestion1) {
-						console.log(responseQuestion1)
-						const idRadio = `radio-buttom-${responseQuestion1.toLowerCase()}${
+						document
+							.querySelectorAll(
+								`.stadistics-container-${question + 1}`
+							)
+							.forEach((item) => {
+								item.style.display = 'flex'
+							})
+
+						const idRadio = `radio-buttom-${correct.toLowerCase()}${
 							question === 0 ? '' : `-${question + 1}`
 						}`
-
-						const idRadioe = `radio-botton-${responseQuestion1.toLowerCase()}${
-							question === 0 ? '' : `-${question + 1}`
-						}`
-
-						document.getElementById(idRadioe).style =
-							'display: block;'
 
 						document.getElementById(idRadio).style =
-							'border:3px solid #D50000'
+							'border:3px solid #1a8f1f'
 
 						document.getElementById(
-							`bar-${responseQuestion1.toLowerCase()}${
+							`bar-${correct.toLowerCase()}${
 								question === 0 ? '' : `-${question + 1}`
 							}`
-						).style.background = '#D50000'
+						).style.background = '#1a8f1f'
 
 						document.getElementById(
-							`radio-botton-${responseQuestion1.toLowerCase()}${
+							`radio-botton-${correct.toLowerCase()}${
 								question === 0 ? '' : `-${question + 1}`
 							}`
-						).style = 'background: #D50000;display:block;'
-					}
-				})
+						).style = 'background: #1a8f1f;display:block;'
+
+						for (let i = 0; i < letters.length; i++) {
+							if (letters[i] === correct) {
+								document.getElementById(
+									`bar-${letters[i].toLowerCase()}${
+										question === 0 ? '' : `-${question + 1}`
+									}`
+								).style = `width:${
+									data.data[letters[i].toLowerCase()]
+								}%;background:#1a8f1f;`
+							} else {
+								document.getElementById(
+									`bar-${letters[i].toLowerCase()}${
+										question === 0 ? '' : `-${question + 1}`
+									}`
+								).style = `width:${
+									data.data[letters[i].toLowerCase()]
+								}%;background:#fff;`
+							}
+
+							document.getElementById(
+								`number-stadistics-${letters[i].toLowerCase()}${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+							).innerText = `${data.data[
+								letters[i].toLowerCase()
+							].toFixed(2)}%`
+
+							document.getElementById(
+								`radio-botton-${letters[i].toLowerCase()}${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+							).style.display = 'block'
+						}
+
+						if (correct !== responseQuestion1) {
+							console.log(responseQuestion1)
+							const idRadio = `radio-buttom-${responseQuestion1.toLowerCase()}${
+								question === 0 ? '' : `-${question + 1}`
+							}`
+
+							const idRadioe = `radio-botton-${responseQuestion1.toLowerCase()}${
+								question === 0 ? '' : `-${question + 1}`
+							}`
+
+							document.getElementById(idRadioe).style =
+								'display: block;'
+
+							document.getElementById(idRadio).style =
+								'border:3px solid #D50000'
+
+							document.getElementById(
+								`bar-${responseQuestion1.toLowerCase()}${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+							).style.background = '#D50000'
+
+							document.getElementById(
+								`radio-botton-${responseQuestion1.toLowerCase()}${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+							).style = 'background: #D50000;display:block;'
+						}
+					})
+			}
 		})
 })
 
@@ -193,108 +198,111 @@ document.addEventListener('DOMContentLoaded', () => {
 	document
 		.getElementById(`boton-1${question === 0 ? '' : `-${question + 1}`}`)
 		.addEventListener('click', () => {
-			let token = JSON.parse(localStorage.getItem('token')).data.token
+			if (!resueltas.includes(questions)) {
+				resueltas.push(questions)
+				let token = JSON.parse(localStorage.getItem('token')).data.token
 
-			let formData = new FormData()
+				let formData = new FormData()
 
-			formData.append('question', questions)
+				formData.append('question', questions)
 
-			let responseT = ''
+				let responseT = ''
 
-			if (questions === 1) {
-				responseT = responseQuestion1
-			} else if (questions === 2) {
-				responseT = responseQuestion2
-			} else if (questions === 3) {
-				responseT = responseQuestion3
-			} else if (questions === 4) {
-				responseT = responseQuestion4
-			}
-
-			formData.append('response', responseT)
-
-			fetch(
-				'https://api-editorizacion-dinamica-2.eml.com.co/api/auth/save-question',
-				{
-					method: 'POST',
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-					body: formData,
+				if (questions === 1) {
+					responseT = responseQuestion1
+				} else if (questions === 2) {
+					responseT = responseQuestion2
+				} else if (questions === 3) {
+					responseT = responseQuestion3
+				} else if (questions === 4) {
+					responseT = responseQuestion4
 				}
-			)
-				.then((response) => response.json())
-				.then((data) => {
-					document
-						.getElementById('button-next-article')
-						.removeAttribute('disabled')
-					const correct = articleBySections[question].correct
-					if (correct !== responseT) {
-						const idRadio = `radio-buttom-${responseT.toLowerCase()}${
+
+				formData.append('response', responseT)
+
+				fetch(
+					'https://api-editorizacion-dinamica-2.eml.com.co/api/auth/save-question',
+					{
+						method: 'POST',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+						body: formData,
+					}
+				)
+					.then((response) => response.json())
+					.then((data) => {
+						document
+							.getElementById('button-next-article')
+							.removeAttribute('disabled')
+						const correct = articleBySections[question].correct
+						if (correct !== responseT) {
+							const idRadio = `radio-buttom-${responseT.toLowerCase()}${
+								question === 0 ? '' : `-${question + 1}`
+							}`
+							document.getElementById(idRadio).style =
+								'border:1px solid #D50000'
+
+							document.getElementById(
+								`bar-${responseT.toLowerCase()}`
+							).style.background = '#D50000'
+
+							document.getElementById(
+								`radio-botton-${responseT.toLowerCase()}${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+							).style = 'background: #D50000;'
+						}
+
+						const idRadio = `radio-buttom-${correct.toLowerCase()}${
 							question === 0 ? '' : `-${question + 1}`
 						}`
 						document.getElementById(idRadio).style =
-							'border:1px solid #D50000'
+							'border:1px solid #1a8f1f'
 
 						document.getElementById(
-							`bar-${responseT.toLowerCase()}`
-						).style.background = '#D50000'
-
-						document.getElementById(
-							`radio-botton-${responseT.toLowerCase()}${
+							`bar-${correct.toLowerCase()}${
 								question === 0 ? '' : `-${question + 1}`
 							}`
-						).style = 'background: #D50000;'
-					}
+						).style.background = '#1a8f1f'
 
-					const idRadio = `radio-buttom-${correct.toLowerCase()}${
-						question === 0 ? '' : `-${question + 1}`
-					}`
-					document.getElementById(idRadio).style =
-						'border:1px solid #1a8f1f'
-
-					document.getElementById(
-						`bar-${correct.toLowerCase()}${
-							question === 0 ? '' : `-${question + 1}`
-						}`
-					).style.background = '#1a8f1f'
-
-					document.getElementById(
-						`radio-botton-${correct.toLowerCase()}${
-							question === 0 ? '' : `-${question + 1}`
-						}`
-					).style = 'background: #1a8f1f;'
-
-					document
-						.querySelectorAll(
-							`.stadistics-container-${question + 1}`
-						)
-						.forEach((item) => {
-							item.style.display = 'flex'
-						})
-
-					for (let i = 0; i < letters.length; i++) {
 						document.getElementById(
-							`bar-${letters[i].toLowerCase()}${
+							`radio-botton-${correct.toLowerCase()}${
 								question === 0 ? '' : `-${question + 1}`
 							}`
-						).style.width = `${
-							data.data[letters[i].toLowerCase()]
-						}%`
+						).style = 'background: #1a8f1f;'
 
-						document.getElementById(
-							`number-stadistics-${letters[i].toLowerCase()}`
-						).innerText = `${data.data[
-							letters[i].toLowerCase()
-						].toFixed(2)}%`
+						document
+							.querySelectorAll(
+								`.stadistics-container-${question + 1}`
+							)
+							.forEach((item) => {
+								item.style.display = 'flex'
+							})
 
-						document.getElementById(
-							`radio-botton-${letters[i].toLowerCase()}${
-								question === 0 ? '' : `-${question + 1}`
-							}`
-						).style.display = 'block'
-					}
-				})
+						for (let i = 0; i < letters.length; i++) {
+							document.getElementById(
+								`bar-${letters[i].toLowerCase()}${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+							).style.width = `${
+								data.data[letters[i].toLowerCase()]
+							}%`
+
+							document.getElementById(
+								`number-stadistics-${letters[i].toLowerCase()}`
+							).innerText = `${data.data[
+								letters[i].toLowerCase()
+							].toFixed(2)}%`
+
+							document.getElementById(
+								`radio-botton-${letters[i].toLowerCase()}${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+							).style.display = 'block'
+						}
+					})
+			}
 		})
 
 	// Preguntas 2 b

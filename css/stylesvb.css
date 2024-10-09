@@ -60,7 +60,7 @@
 	padding: 0 60px;
 	margin: 0;
 	background: transparent;
-	font-size: 26px;
+	font-size: 20px;
 	color: #fff;
 }
 
@@ -70,4 +70,8 @@
 
 .Text-nombre:focus, .Text-nombre:focus-visible, .Text-nombre:focus-within{ 
     outline:none;
+}
+
+.error::placeholder {
+	color: #f5a500;
 }

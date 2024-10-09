@@ -9,13 +9,17 @@ function toggleCheckbox() {
         rect.style.fill = "#faa22f";
         mark.style.visibility = "visible";
         bandera = true;
+        document.getElementById('activar').classList.remove('no-check')
     } else {
         rect.style.fill = "#3420ff";
         mark.style.visibility = "hidden";
+        document.getElementById('activar').classList.add('no-check')
         bandera = false;
     }
 }
 
-document.getElementById('activar').addEventListener('click', function () {
-	toggleCheckbox()
-})
+setTimeout(() => {
+    document.getElementById('activar').addEventListener('click', function () {
+        toggleCheckbox()
+    })
+}, 1000)
