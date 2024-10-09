@@ -2,7 +2,13 @@ $(document).ready(function () {
 	
 	// modal 1
 	$('.openModal').on('click', () => {
-		$('.modal').css('display', 'flex')
+		const userAgent = navigator.userAgent;
+		if (userAgent.match(/iPhone|iPad|iPod/)) {
+			window.open('https://eml.co/assets/POL_TratatmientoDatos_SI_EML.pdf', '_blank')
+		} else {
+			$('.modal').css('display', 'flex')
+			$('body').css('overflow','hidden')
+		}
 		document.getElementById('success').classList.remove('disable')
 		var rect = document.getElementById("activar");
 		var mark = document.getElementById("marco");
@@ -12,7 +18,14 @@ $(document).ready(function () {
 	})
 
 	$('#data').on('click', () => {
-		$('.modal').css('display', 'flex')
+		const userAgent = navigator.userAgent;
+		if (userAgent.match(/iPhone|iPad|iPod/)) {
+			window.open('https://eml.co/assets/POL_TratatmientoDatos_SI_EML.pdf', '_blank')
+		} else {
+			$('.modal').css('display', 'flex')
+			$('body').css('overflow','hidden')
+		}
+		
 		document.getElementById('success').classList.remove('disable')
 		var rect = document.getElementById("activar");
 		var mark = document.getElementById("marco");
@@ -23,5 +36,6 @@ $(document).ready(function () {
 	// cerra modal 1
 	$('.closeModal').on('click', () => {
 		$('.modal').css('display', 'none')
+		$('body').css('overflow','auto')
 	})
 })

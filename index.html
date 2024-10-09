@@ -85,5 +85,32 @@
 				})
 			}, 1000)
 		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.7.76/pdf.min.mjs"></script>
+
+		<script>
+		  const pdfUrl = 'https://eml.co/assets/POL_TratatmientoDatos_SI_EML.pdf';
+		  const pdfViewer = document.getElementById('pdf-viewer');
+		
+		  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+		
+		  pdfjsLib.getDocument(pdfUrl).promise.then((pdf) => {
+			const numPages = pdf.numPages;
+		
+			for (let i = 1; i <= numPages; i++) {
+			  const page = pdf.getPage(i);
+			  const scale = 1.5;
+			  const viewport = page.getViewport({ scale: scale });
+			  const canvas = document.createElement('canvas');
+			  const context = canvas.getContext('2d');
+		
+			  canvas.height = viewport.height;
+			  canvas.width = viewport.width;
+		
+			  page.render({ canvasContext: context, viewport: viewport });
+		
+			  pdfViewer.appendChild(canvas);
+			}
+		  });
+		</script>
 	</body>
 </html>

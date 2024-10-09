@@ -587,7 +587,7 @@ input[type='range']::-webkit-slider-thumb {
 	display: none;
 }
 
-[class^="stadistics-container-"] {
+[class^='stadistics-container-'] {
 	width: 100%;
 	height: 20px;
 	margin-top: 5px;
@@ -686,10 +686,10 @@ input[type='range']::-webkit-slider-thumb {
 
 .puntero {
 	position: absolute;
-    width: 20%;
-    /* height: 90%; */
-    top: 40.6%;
-    right: -11%;
+	width: 20%;
+	/* height: 90%; */
+	top: 40.6%;
+	right: -11%;
 }
 
 .puntero img {
@@ -716,13 +716,12 @@ input[type='range']::-webkit-slider-thumb {
 	animation: pulseGlow 1.5s infinite; /* Animación para el resplandor */
 }
 
-
 .swal2-title {
 	top: 0 !important;
 	left: 0 !important;
 }
 
-.swal2-confirm  {
+.swal2-confirm {
 	top: 0 !important;
 	left: 0 !important;
 	position: relative !important;
@@ -730,5 +729,72 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 .swal2-html-container {
-	font-family: 'Montserrat-SemiBold';
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
+}
+
+@media (max-width: 600px) {
+	.container-icons {
+		max-width: 31%;
+		margin-left: 5%;
+	}
+
+	.container-icons img {
+		width: auto;
+	}
+
+	table {
+		margin-top: 15%;
+		width: 90%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.card-question-container {
+		max-width: 92%;
+		width: 100%;
+		background: linear-gradient(to right, #3a679c, #32408d);
+		padding: 13px;
+		border-radius: 20px;
+	}
+
+	.card-subquestion-container {
+		max-width: 98%;
+		width: 100%;
+		border-radius: 20px;
+		border: 3px solid #e0e2e96b;
+		background: linear-gradient(to right, #4380ff, #3a55ff);
+	}
+
+	.logoeml {
+		width: 90%;
+	}
+
+	.question-text {
+		color: #fff;
+		font-weight: bold;
+		padding-bottom: 15px;
+		padding: 0 8px;
+		text-align: center;
+		font-size: 12px;
+	}
+
+	.stadistics-bar-container {
+		width: 67%;
+	}
+
+	.radio-buttom {
+        border-radius: 100%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        border: 2px solid #33418e;
+        background: #fff;
+        flex-wrap: nowrap;
+        align-items: center;
+        max-width: 25px;
+        min-width: 25px;
+        max-height: 25px;
+        min-height: 25px;
+	}
 }

@@ -92,6 +92,17 @@ p {
     margin-left: auto;
     margin-right: auto;
 }
+@media (max-width: 820px) {
+    .card-new {
+        margin-top: 15%;
+    }
+}
+
+@media (max-width: 600px) {
+    .card-new {
+        margin-top: 28%;
+    }
+}
 
 
 .logoeml1 {
