@@ -509,7 +509,7 @@ input[type="number"] {
 }
 
 
-.modal iframe {
+.modal embed {
 	background-repeat: no-repeat;
     background-size: 100% 100%;
     /* position: absolute; */

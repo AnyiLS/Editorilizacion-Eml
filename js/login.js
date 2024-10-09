@@ -24,7 +24,6 @@ setTimeout(() => {
 		
 		document.getElementById('success').addEventListener('click', (e) => {
 			e.preventDefault()
-			alert('Hola')
 
 			if (!formControlRegister.name) {
 				document.querySelector('.Text-nombre').style.border =
