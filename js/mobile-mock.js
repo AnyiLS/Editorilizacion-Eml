@@ -410,9 +410,9 @@ const mobileHTML = `
                 background: #faf5f575;
                 top: 0;
             ">
-            <iframe
+            <embed type="application/pdf"
                 src="https://eml.co/assets/POL_TratatmientoDatos_SI_EML.pdf"
-                frameborder="0"></iframe>
+                ></iframe>
             <div class="closeModal">
                 <img src="./imagenes/Group7.png" alt="" />
             </div>
