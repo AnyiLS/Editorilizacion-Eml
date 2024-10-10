@@ -237,21 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('dislike').innerText = dislike ? dislike : 0
 })
 
-document.getElementById('like-image').addEventListener('click', () => {
-	localStorage.setItem('like', parseInt(localStorage.getItem('like')) + 1)
-	document.getElementById('like').innerText = localStorage.getItem('like')
-	document.getElementById('dislike').innerText =
-		localStorage.getItem('dislike')
-})
-document.getElementById('dislike-image').addEventListener('click', () => {
-	localStorage.setItem(
-		'dislike',
-		parseInt(localStorage.getItem('dislike')) + 1
-	)
-	document.getElementById('like').innerText = localStorage.getItem('like')
-	document.getElementById('dislike').innerText =
-		localStorage.getItem('dislike')
-})
 document.getElementById('share').addEventListener('click', () => {
 	navigator.clipboard
 		.writeText(`${window.location.origin}/sesion.html`)

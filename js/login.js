@@ -59,6 +59,11 @@ setTimeout(() => {
 				document.querySelector('#activar rect').style.stroke = 'red'
 				document.querySelector('#activar rect').style.strokeWidth =
 					'1px'
+
+					Swal.fire({
+						icon: 'error',
+						text: 'Debes aceptar nuestras politicas de habeas data',
+					})
 			}
 
 			if (
