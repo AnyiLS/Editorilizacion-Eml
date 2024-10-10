@@ -281,10 +281,10 @@ const mobileHTML = `
                                             transform="translate(99.8 471.79)"
                                             style="
                                                 font-weight: 600;
-                                                font-size: 20px;
+                                                font-size: 11px;
                                             ">
                                             <tspan x="0" y="0">
-                                                Habeas data
+                                                He leído y acepto los términos y condiciones de la política de Habeas Data.
                                             </tspan>
                                         </text>
                                     </g>
@@ -478,7 +478,7 @@ const desktopHTML = `
                         }
 
                         .cls-2 {
-                            font-size: 16.22px;
+                            font-size: 10.22px;
                             letter-spacing: -0.03em;
                         }
 
@@ -705,7 +705,7 @@ const desktopHTML = `
                                         id="data"
                                         transform="translate(99.8 471.79)">
                                         <tspan x="0" y="0">
-                                            Habeas data
+                                           He leído y acepto los términos y condiciones de la política de Habeas Data.
                                         </tspan>
                                     </text>
                                 </g>
