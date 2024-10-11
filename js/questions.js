@@ -55,145 +55,180 @@ const handleSetListeners = () => {
 	})
 }
 
-document.getElementById('button-next-article').addEventListener('click', () => {
-	if (question + 1 === 6) {
-		document.getElementById('button-next-article').innerText = 'Finalizar'
-	}
-	handleChangeQuestion()
-	handleSetListeners()
-	if (question !== 3)
-		document
-			.getElementById('button-next-article')
-			.setAttribute('disabled', 'true')
-
-	document
-		.getElementById(`boton-1${question === 0 ? '' : `-${question + 1}`}`)
-		.addEventListener('click', () => {
-			console.log(resueltas)
-			if (!resueltas.includes(questions)) {
-				resueltas.push(questions)
-				let token = JSON.parse(localStorage.getItem('token')).data.token
-
-				let formData = new FormData()
-
-				formData.append('question', questions)
-
-				formData.append('response', responseQuestion1)
-
-				fetch(
-					'https://api-editorizacion-dinamica-2.eml.com.co/api/auth/save-question',
-					{
-						method: 'POST',
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-						body: formData,
-					}
-				)
-					.then((response) => response.json())
-					.then((data) => {
-						document
-							.getElementById('button-next-article')
-							.removeAttribute('disabled')
-						const correct = articleBySections[question].correct
-
-						document
-							.querySelectorAll(
-								`.stadistics-container-${question + 1}`
-							)
-							.forEach((item) => {
-								item.style.display = 'flex'
-							})
-
-						const idRadio = `radio-buttom-${correct.toLowerCase()}${
-							question === 0 ? '' : `-${question + 1}`
-						}`
-
-						document.getElementById(idRadio).style =
-							'border:3px solid #1a8f1f'
-
-						document.getElementById(
-							`bar-${correct.toLowerCase()}${
-								question === 0 ? '' : `-${question + 1}`
-							}`
-						).style.background = '#1a8f1f'
-
-						document.getElementById(
-							`radio-botton-${correct.toLowerCase()}${
-								question === 0 ? '' : `-${question + 1}`
-							}`
-						).style = 'background: #1a8f1f;display:block;'
-
-						for (let i = 0; i < letters.length; i++) {
-							if (letters[i] === correct) {
-								document.getElementById(
-									`bar-${letters[i].toLowerCase()}${
-										question === 0 ? '' : `-${question + 1}`
-									}`
-								).style = `width:${
-									data.data[letters[i].toLowerCase()]
-								}%;background:#1a8f1f;`
-							} else {
-								document.getElementById(
-									`bar-${letters[i].toLowerCase()}${
-										question === 0 ? '' : `-${question + 1}`
-									}`
-								).style = `width:${
-									data.data[letters[i].toLowerCase()]
-								}%;background:#fff;`
-							}
-
-							document.getElementById(
-								`number-stadistics-${letters[i].toLowerCase()}${
-									question === 0 ? '' : `-${question + 1}`
-								}`
-							).innerText = `${data.data[
-								letters[i].toLowerCase()
-							].toFixed(2)}%`
-
-							document.getElementById(
-								`radio-botton-${letters[i].toLowerCase()}${
-									question === 0 ? '' : `-${question + 1}`
-								}`
-							).style.display = 'block'
-						}
-
-						if (correct !== responseQuestion1) {
-							console.log(responseQuestion1)
-							const idRadio = `radio-buttom-${responseQuestion1.toLowerCase()}${
-								question === 0 ? '' : `-${question + 1}`
-							}`
-
-							const idRadioe = `radio-botton-${responseQuestion1.toLowerCase()}${
-								question === 0 ? '' : `-${question + 1}`
-							}`
-
-							document.getElementById(idRadioe).style =
-								'display: block;'
-
-							document.getElementById(idRadio).style =
-								'border:3px solid #D50000'
-
-							document.getElementById(
-								`bar-${responseQuestion1.toLowerCase()}${
-									question === 0 ? '' : `-${question + 1}`
-								}`
-							).style.background = '#D50000'
-
-							document.getElementById(
-								`radio-botton-${responseQuestion1.toLowerCase()}${
-									question === 0 ? '' : `-${question + 1}`
-								}`
-							).style = 'background: #D50000;display:block;'
-						}
-					})
-			}
-		})
-})
-
 document.addEventListener('DOMContentLoaded', () => {
 	handleChangeArticle()
 	handleSetListeners()
+
+	document
+		.getElementById('button-next-article')
+		.addEventListener('click', () => {
+			if (question + 1 === 6) {
+				document.getElementById('button-next-article').innerText =
+					'Finalizar'
+			}
+			handleChangeQuestion()
+			handleSetListeners()
+			if (question !== 3)
+				document
+					.getElementById('button-next-article')
+					.setAttribute('disabled', 'true')
+
+			document
+				.getElementById(
+					`boton-1${question === 0 ? '' : `-${question + 1}`}`
+				)
+				.addEventListener('click', () => {
+					console.log(resueltas)
+					if (!resueltas.includes(questions)) {
+						resueltas.push(questions)
+						let token = JSON.parse(localStorage.getItem('token'))
+							.data.token
+
+						let formData = new FormData()
+
+						formData.append('question', questions)
+
+						formData.append('response', responseQuestion1)
+
+						fetch(
+							'https://api-editorizacion-dinamica-2.eml.com.co/api/auth/save-question',
+							{
+								method: 'POST',
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+								body: formData,
+							}
+						)
+							.then((response) => response.json())
+							.then((data) => {
+
+								console.log(document.getElementById(
+									`boton-1${
+										question === 0 ? '' : `-${question + 1}`
+									}`
+								))
+								document.getElementById(
+									`boton-1${
+										question === 0 ? '' : `-${question + 1}`
+									}`
+								).style.display = 'none'
+								document
+									.getElementById('button-next-article')
+									.removeAttribute('disabled')
+								const correct =
+									articleBySections[question].correct
+
+								document
+									.querySelectorAll(
+										`.stadistics-container-${question + 1}`
+									)
+									.forEach((item) => {
+										item.style.display = 'flex'
+									})
+
+								const idRadio = `radio-buttom-${correct.toLowerCase()}${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+
+								document.getElementById(idRadio).style =
+									'border:3px solid #1a8f1f'
+
+								document.getElementById(
+									`bar-${correct.toLowerCase()}${
+										question === 0 ? '' : `-${question + 1}`
+									}`
+								).style.background = '#1a8f1f'
+
+								document.getElementById(
+									`radio-botton-${correct.toLowerCase()}${
+										question === 0 ? '' : `-${question + 1}`
+									}`
+								).style = 'background: #1a8f1f;display:block;'
+
+								for (let i = 0; i < letters.length; i++) {
+									if (letters[i] === correct) {
+										document.getElementById(
+											`bar-${letters[i].toLowerCase()}${
+												question === 0
+													? ''
+													: `-${question + 1}`
+											}`
+										).style = `width:${
+											data.data[letters[i].toLowerCase()]
+										}%;background:#1a8f1f;`
+									} else {
+										document.getElementById(
+											`bar-${letters[i].toLowerCase()}${
+												question === 0
+													? ''
+													: `-${question + 1}`
+											}`
+										).style = `width:${
+											data.data[letters[i].toLowerCase()]
+										}%;background:#fff;`
+									}
+
+									document.getElementById(
+										`number-stadistics-${letters[
+											i
+										].toLowerCase()}${
+											question === 0
+												? ''
+												: `-${question + 1}`
+										}`
+									).innerText = `${data.data[
+										letters[i].toLowerCase()
+									].toFixed(2)}%`
+
+									document.getElementById(
+										`radio-botton-${letters[
+											i
+										].toLowerCase()}${
+											question === 0
+												? ''
+												: `-${question + 1}`
+										}`
+									).style.display = 'block'
+								}
+
+								if (correct !== responseQuestion1) {
+									console.log(responseQuestion1)
+									const idRadio = `radio-buttom-${responseQuestion1.toLowerCase()}${
+										question === 0 ? '' : `-${question + 1}`
+									}`
+
+									const idRadioe = `radio-botton-${responseQuestion1.toLowerCase()}${
+										question === 0 ? '' : `-${question + 1}`
+									}`
+
+									document.getElementById(idRadioe).style =
+										'display: block;'
+
+									document.getElementById(idRadio).style =
+										'border:3px solid #D50000'
+
+									document.getElementById(
+										`bar-${responseQuestion1.toLowerCase()}${
+											question === 0
+												? ''
+												: `-${question + 1}`
+										}`
+									).style.background = '#D50000'
+
+									document.getElementById(
+										`radio-botton-${responseQuestion1.toLowerCase()}${
+											question === 0
+												? ''
+												: `-${question + 1}`
+										}`
+									).style =
+										'background: #D50000;display:block;'
+								}
+							})
+					}
+				})
+		})
 
 	document
 		.getElementById(`boton-1${question === 0 ? '' : `-${question + 1}`}`)
@@ -232,6 +267,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				)
 					.then((response) => response.json())
 					.then((data) => {
+						console.log(document.getElementById(
+							`boton-1${
+								question === 0 ? '' : `-${question + 1}`
+							}`
+						))
+						document.getElementById(
+							`boton-1${
+								question === 0 ? '' : `-${question + 1}`
+							}`
+						).style.display = 'none'
 						document
 							.getElementById('button-next-article')
 							.removeAttribute('disabled')

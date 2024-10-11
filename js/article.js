@@ -1,7 +1,7 @@
 let question = 0
 
 const handleChangeArticle = () => {
-	const container = document.querySelector('.card-container'),
+	const container = document.querySelector('.text-content'),
 		article = document.createElement('div')
 
 	article.classList.add(`information-${question}`)
@@ -55,8 +55,12 @@ const handleChangeArticle = () => {
 				<div class="option-checkbox" id="responseQuestion${
 					articleBySections[question].id
 				}${letters[index]}">
-					<div class="radio-buttom" id="radio-buttom-${letters[index].toLowerCase()}${question === 0 ? '' : `-${question + 1}`}">
-						<div class='radio-botton' id='radio-botton-${letters[index].toLowerCase()}${question === 0 ? '' : `-${question + 1}`}'>
+					<div class="radio-buttom" id="radio-buttom-${letters[index].toLowerCase()}${
+				question === 0 ? '' : `-${question + 1}`
+			}">
+						<div class='radio-botton' id='radio-botton-${letters[index].toLowerCase()}${
+				question === 0 ? '' : `-${question + 1}`
+			}'>
 							
 						</div>
 					</div>
@@ -77,30 +81,33 @@ const handleChangeArticle = () => {
 				</div>		
 				<div class='stadistics-container-${question + 1}'>
 					<div class='stadistics-bar-container'>
-						<div class='bar-${letters[index].toLowerCase()}${question === 0 ? '' : `-${question + 1}`}' id='bar-${letters[
-				index
-			].toLowerCase()}${
+						<div class='bar-${letters[index].toLowerCase()}${
+				question === 0 ? '' : `-${question + 1}`
+			}' id='bar-${letters[index].toLowerCase()}${
 				question === 0 ? '' : `-${question + 1}`
 			}'></div>
 					</div>
-					<span id='number-stadistics-${letters[index].toLowerCase()}${question === 0 ? '' : `-${question + 1}`}'>100%</span>
+					<span id='number-stadistics-${letters[index].toLowerCase()}${
+				question === 0 ? '' : `-${question + 1}`
+			}'>100%</span>
 				</div>
 			`
 		})
 
 		questionSubcontainer.appendChild(options)
 
-		const button = document.createElement('div');
-		button.style = 'display:flex;justify-content:center;align-items:center;padding-bottom:10px;'
+		const button = document.createElement('div')
+		button.style =
+			'display:flex;justify-content:center;align-items:center;padding-bottom:10px;'
 		button.id = `boton-1${question === 0 ? '' : `-${question + 1}`}`
-		const buttonElement = document.createElement('button');
+		const buttonElement = document.createElement('button')
 		buttonElement.classList.add('buttom-suce')
 		buttonElement.classList.add('shadow-effect')
-		buttonElement.innerText = 'Enviar';
+		buttonElement.innerText = 'Enviar'
 
-		button.appendChild(buttonElement);
+		button.appendChild(buttonElement)
 
-		questionSubcontainer.appendChild(button);
+		questionSubcontainer.appendChild(button)
 
 		questionsContainer.appendChild(questionSubcontainer)
 
@@ -127,7 +134,7 @@ const articleBySections = [
 	{
 		text: [
 			'La vitamina D es un secosteroide y una prohormona1 liposoluble<sup>2</sup> vA la forma inactiva de este nutriente se le conoce como colecalciferol, la cual requiere de dos hidroxilaciones diferentes para ser activada, una en el hígado para convertirse en calcidiol o 25 hidroxicolecalciferol (25(OH)D o 25(OH)D3) y otra en el riñón para que el calcidol se metabolice en calcitriol o 1-alfa,25-dihidroxicolecalciferol (1,25(OH)2D o 1,25(OH)2D3).<sup>2</sup> Precisamente, el parámetro más utilizado para medir la cantidad de vitamina D en el organismo son los niveles de 25(OH)D en la sangre, siendo normales las concentraciones >30 ng/mL y óptimas las concentraciones >40 ng/mL.<sup>4</sup> Las concentraciones inferiores a 20 ng/mL representan una deficiencia nutricional.<sup>1,4</sup>',
-			'La vitamina D tiene muchas funciones comprobadas dentro del organismo que son posibles gracias a su influencia en el curso de algunos procesos metabólicos básicos.<sup>5</sup> Las más conocidas son su papel en la mineralización ósea y en la regulación del calcio y sus efectos en la prevención de enfermedades como el raquitismo y la osteoporosis.<sup>3,5</sup> No obstante, se ha comprobado que todos los tejidos y todas las células del cuerpo tienen un receptor de vitamina D, por lo que su deficiencia, además de estar asociada con la fisiopatología de las enfermedades ya mencionadas, también puede afectar otras funciones del organismo.<sup>2</sup>',
+			'La vitamina D tiene muchas funciones comprobadas dentro del organismo que son posibles gracias a su influencia en el curso de algunos procesos metabólicos básicos.<sup>5</sup> Las más conocidas son su papel en la mineralización ósea',
 		],
 		id: 1,
 		question:
@@ -225,8 +232,6 @@ const articleBySections = [
 const letters = ['A', 'B', 'C', 'D']
 
 document.addEventListener('DOMContentLoaded', () => {
-	
-
 	localStorage.setItem('like', 0)
 	localStorage.setItem('dislike', 0)
 
