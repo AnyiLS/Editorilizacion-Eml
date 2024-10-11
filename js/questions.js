@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
 					`boton-1${question === 0 ? '' : `-${question + 1}`}`
 				)
 				.addEventListener('click', () => {
-					console.log(resueltas)
-					if (!resueltas.includes(questions)) {
+					console.log(responseQuestion1)
+					if (!resueltas.some((item) => item === questions) && responseQuestion1) {
 						resueltas.push(questions)
 						let token = JSON.parse(localStorage.getItem('token'))
 							.data.token
@@ -102,12 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
 						)
 							.then((response) => response.json())
 							.then((data) => {
-
-								console.log(document.getElementById(
-									`boton-1${
-										question === 0 ? '' : `-${question + 1}`
-									}`
-								))
+								console.log(
+									document.getElementById(
+										`boton-1${
+											question === 0
+												? ''
+												: `-${question + 1}`
+										}`
+									)
+								)
 								document.getElementById(
 									`boton-1${
 										question === 0 ? '' : `-${question + 1}`
@@ -225,6 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
 									).style =
 										'background: #D50000;display:block;'
 								}
+
+								responseQuestion1 = null
 							})
 					}
 				})
@@ -233,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document
 		.getElementById(`boton-1${question === 0 ? '' : `-${question + 1}`}`)
 		.addEventListener('click', () => {
-			if (!resueltas.includes(questions)) {
+			if (!resueltas.some((item) => item === questions) && responseQuestion1) {
 				resueltas.push(questions)
 				let token = JSON.parse(localStorage.getItem('token')).data.token
 
@@ -267,15 +272,15 @@ document.addEventListener('DOMContentLoaded', () => {
 				)
 					.then((response) => response.json())
 					.then((data) => {
-						console.log(document.getElementById(
-							`boton-1${
-								question === 0 ? '' : `-${question + 1}`
-							}`
-						))
+						console.log(
+							document.getElementById(
+								`boton-1${
+									question === 0 ? '' : `-${question + 1}`
+								}`
+							)
+						)
 						document.getElementById(
-							`boton-1${
-								question === 0 ? '' : `-${question + 1}`
-							}`
+							`boton-1${question === 0 ? '' : `-${question + 1}`}`
 						).style.display = 'none'
 						document
 							.getElementById('button-next-article')
@@ -346,6 +351,8 @@ document.addEventListener('DOMContentLoaded', () => {
 								}`
 							).style.display = 'block'
 						}
+
+						responseQuestion1 = null
 					})
 			}
 		})
